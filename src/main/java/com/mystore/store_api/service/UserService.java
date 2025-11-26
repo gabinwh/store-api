@@ -32,6 +32,9 @@ public class UserService {
     public UserResponseDTO registerNewUser(RegisterRequestDTO dto) {
 
         User newUser = new User();
+
+        newUser.setName(dto.getName());
+        newUser.setEmail(dto.getEmail());
         newUser.setPassword(passwordEncoder.encode(dto.getPassword()));
         newUser.setRole("CLIENTE");
 
