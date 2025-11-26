@@ -2,6 +2,7 @@ package com.mystore.store_api.service;
 
 import com.mystore.store_api.dto.RegisterRequestDTO;
 import com.mystore.store_api.dto.UserResponseDTO;
+import com.mystore.store_api.exception.BusinessException;
 import com.mystore.store_api.model.User;
 import com.mystore.store_api.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +31,10 @@ public class UserService {
 
 
     public UserResponseDTO registerNewUser(RegisterRequestDTO dto) {
+
+        if (userRepository.existsByEmail(dto.getEmail())) {
+            throw new BusinessException("Email already used.");
+        }
 
         User newUser = new User();
 

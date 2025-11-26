@@ -8,13 +8,15 @@ import lombok.Data;
 @Data
 public class RegisterRequestDTO {
     @NotBlank
+    @Size(min = 1, max = 50)
     private String name;
 
     @NotBlank
     @Email
+    @Size(min = 1, max = 150)
     private String email;
 
     @NotBlank
-    @Size(min = 6)
+    @Size(min = 6, max = 20)
     private String password;
 }
