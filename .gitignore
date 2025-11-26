@@ -12,13 +12,13 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-
+###Postgres
+postgres-data/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
