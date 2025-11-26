@@ -47,4 +47,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Object> handleBusinessError(BusinessException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("errors", ex.getErrors());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
 }
