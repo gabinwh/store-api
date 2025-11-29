@@ -12,14 +12,16 @@ import java.util.Date;
 public class JwtUtilsService {
 
     private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long JWT_TOKEN_VALIDITY = 8 * 60 * 60 * 1000;
+    private final long JWT_TOKEN_VALIDITY = 1000;
 
     /**
      * Gera o token JWT para o usuário.
      */
     public String generateToken(User user) {
         return Jwts.builder()
-                .setSubject(user.getName())
+                .setSubject(user.getEmail())
+                .claim("role", user.getRole())
+                .claim("name", user.getName())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
                 .signWith(SECRET_KEY)
@@ -27,9 +29,9 @@ public class JwtUtilsService {
     }
 
     /**
-     * Extrai o username (email) do token.
+     * Extrai o email do token.
      */
-    public String getUsernameFromToken(String token) {
+    public String getEmailFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()
@@ -39,7 +41,7 @@ public class JwtUtilsService {
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getUsernameFromToken(token);
+        final String username = getEmailFromToken(token);
 
         try {
             return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));

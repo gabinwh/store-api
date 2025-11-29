@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.List;
 
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtUtilsService jwtUtilsService;
@@ -50,7 +49,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
 
         try {
-            userEmail = jwtUtilsService.getUsernameFromToken(jwt);
+            userEmail = jwtUtilsService.getEmailFromToken(jwt);
         } catch (Exception e) {
             filterChain.doFilter(request, response);
             return;
