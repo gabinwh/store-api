@@ -31,8 +31,7 @@ public class AuthService {
 
         TokenResponseDTO response = new TokenResponseDTO();
         response.setToken(jwt);
-        response.setUsername(user.getEmail());
-        response.setId(user.getId());
+        response.setUsername(user.getName());
 
         return response;
     }

@@ -7,5 +7,4 @@ public class TokenResponseDTO {
     private String token;
     private String type = "Bearer";
     private String username;
-    private Long id;
 }
