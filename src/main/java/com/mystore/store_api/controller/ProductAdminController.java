@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("api/admin/product")
 @RestController
-@RequestMapping("api/products")
 @RequiredArgsConstructor
-public class ProductController {
+public class ProductAdminController {
 
     private final ProductService productService;
 
