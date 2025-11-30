@@ -6,25 +6,26 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
-import java.util.List;
-
 @Entity
-@Table(name = "categories")
+@Table(name = "inventories")
 @Data // Gera Getters, Setters, toString, etc.
 @EqualsAndHashCode(of = "id")
-@SQLDelete(sql = "UPDATE categories SET deleted = true WHERE id = ?")
-public class Category {
+@SQLDelete(sql = "UPDATE inventories SET deleted = true WHERE id = ?")
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @Column(nullable = false)
+    private int quantity = 0;
+
+    @Column(nullable = false)
+    private int reservedQuantity = 0;
 
     @Column(nullable = false)
     private boolean deleted = false;
 
-    // "fetch = FetchType.LAZY" é a boa prática para evitar carregar todos os produtos desnecessariamente
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> productList;
+    @OneToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 }
