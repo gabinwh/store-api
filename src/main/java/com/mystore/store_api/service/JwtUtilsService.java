@@ -5,6 +5,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
 import java.security.Key;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import java.util.Date;
 public class JwtUtilsService {
 
     private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long JWT_TOKEN_VALIDITY = 1000;
+    private final long JWT_TOKEN_VALIDITY = 60 * 60 * 60 * 1000;
 
     /**
      * Gera o token JWT para o usuário.
